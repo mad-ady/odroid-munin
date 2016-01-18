@@ -1,0 +1,30 @@
+#!/bin/sh
+# Get an updated version at https://github.com/mad-ady/odroid-munin
+#%# family=auto
+#%# capabilities=autoconf
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title System temperature
+graph_vlabel temperature
+temperature.label temperature
+graph_category system
+temperature.warning 90
+temperature.critical 110
+graph_info The system temperature in degrees C
+temperature.info System temperature
+EOM
+        exit 0;;
+   autoconf)
+	if [ -f '/sys/devices/virtual/thermal/thermal_zone0/temp' ]; then
+                echo yes;
+        else
+                echo "no (/sys/devices/virtual/thermal/thermal_zone0/temp not found)";
+        fi
+        exit 0;;
+
+esac
+
+printf "temperature.value "
+cat /sys/devices/virtual/thermal/thermal_zone0/temp | sed 's/000$/ /'
