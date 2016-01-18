@@ -1,0 +1,29 @@
+#!/bin/sh
+# Get an updated version from https://github.com/mad-ady/odroid-munin
+#%# family=auto
+#%# capabilities=autoconf
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title FAN Power
+graph_vlabel power percent
+fan.label power percent
+graph_category system
+fan.warning 90
+fan.critical 100
+graph_info Fan RPM percentage
+fan.info System FAN percentage. Requires bc to be installed
+EOM
+        exit 0;;
+   autoconf)
+	if [ -f '/sys/devices/odroid_fan.13/pwm_duty' -o -f '/sys/devices/odroid_fan.14/pwm_duty' ]; then
+		echo yes;
+	else
+		echo "no (/sys/devices/odroid_fan.1[34]/pwm_duty not found)";
+	fi
+	exit 0;;
+esac
+
+printf "fan.value "
+echo `cat /sys/devices/odroid_fan.*/pwm_duty`*100/255 | bc
+
