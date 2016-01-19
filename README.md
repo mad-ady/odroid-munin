@@ -5,6 +5,7 @@ odroid-temp
 ![alt tag](http://imgur.com/P85uwW7.png)
 
 odroid-fan
+
 ![alt tag](http://imgur.com/6YoAUe6.png)
 
 To enable these extra plugins and fix their dependencies you can do these steps:
