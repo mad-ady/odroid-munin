@@ -3,6 +3,7 @@ Munin plugins specific for odroid
 
 odroid-temp
 ![alt tag](http://imgur.com/P85uwW7.png)
+
 odroid-fan
 ![alt tag](http://imgur.com/6YoAUe6.png)
 
