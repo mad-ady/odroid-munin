@@ -27,8 +27,8 @@ sensor3.label SOC_sensor3
 sensor3.critical 110
 sensor3.warning 90
 sensor4.label SOC_GPU
-sensor4.warning 90
 sensor4.critical 110
+sensor4.warning 90
 
 EOM
         exit 0;;
