@@ -5,6 +5,7 @@
 
 case $1 in
    config)
+        if [ -f '/sys/devices/10060000.tmu/temp' ]; then
         cat <<'EOM'
 graph_category system
 graph_title System temperature
@@ -31,6 +32,19 @@ sensor4.critical 110
 sensor4.warning 90
 
 EOM
+        else
+        cat <<'EOM'
+graph_category system
+graph_title System temperature
+graph_vlabel temperature
+graph_info The system temperature in degrees C
+temperature.info System temperature
+temperature.label temperature
+temperature.critical 110
+temperature.warning 90
+
+EOM
+        fi
         exit 0;;
    autoconf)
         if [ -f '/sys/devices/virtual/thermal/thermal_zone0/temp' ]; then
@@ -43,9 +57,10 @@ EOM
 esac
 
 echo "temperature.value" `cat /sys/devices/virtual/thermal/thermal_zone0/temp | sed 's/000$/ /'`
-echo "sensor0.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor0" | sed -r 's/^sensor0+\s+:\s+([0-9]+)000$/\1/'`
-echo "sensor1.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor1" | sed -r 's/^sensor1+\s+:\s+([0-9]+)000$/\1/'`
-echo "sensor2.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor2" | sed -r 's/^sensor2+\s+:\s+([0-9]+)000$/\1/'`
-echo "sensor3.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor3" | sed -r 's/^sensor3+\s+:\s+([0-9]+)000$/\1/'`
-echo "sensor4.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor4" | sed -r 's/^sensor4+\s+:\s+([0-9]+)000$/\1/'`
-
+if [ -f '/sys/devices/10060000.tmu/temp' ]; then
+    echo "sensor0.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor0" | sed -r 's/^sensor0+\s+:\s+([0-9]+)000$/\1/'`
+    echo "sensor1.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor1" | sed -r 's/^sensor1+\s+:\s+([0-9]+)000$/\1/'`
+    echo "sensor2.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor2" | sed -r 's/^sensor2+\s+:\s+([0-9]+)000$/\1/'`
+    echo "sensor3.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor3" | sed -r 's/^sensor3+\s+:\s+([0-9]+)000$/\1/'`
+    echo "sensor4.value" `cat /sys/devices/10060000.tmu/temp | grep "sensor4" | sed -r 's/^sensor4+\s+:\s+([0-9]+)000$/\1/'`
+fi
