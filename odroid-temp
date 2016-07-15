@@ -16,6 +16,7 @@ temperature.warning 90
 temperature.critical 110
 sensor0.label SOC_sensor0
 sensor0.warning 90
+sensor0.critical 110
 sensor1.label SOC_sensor1
 sensor1.critical 110
 sensor1.warning 90
@@ -26,7 +27,7 @@ sensor3.label SOC_sensor3
 sensor3.critical 110
 sensor3.warning 90
 sensor4.label SOC_GPU
-sensor4.critical 110
+sensor4.warning 90
 sensor4.critical 110
 
 EOM
